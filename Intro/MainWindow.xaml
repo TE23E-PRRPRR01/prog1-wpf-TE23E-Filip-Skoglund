@@ -10,9 +10,12 @@
     SizeToContent="WidthAndHeight"
     Background="#581845">
     <StackPanel Margin="10">
-    <Label Margin="5" FontSize="100" FontWeight="bold">Hej Världen</Label>
-    <Label>Ange namn:</Label>
-    <TextBox Margin="5" Height="20"></TextBox>
-    <Button Margin="5" Content="Klicka här" Background="#f642c1"></Button>
+        <Label Margin="5" FontSize="100" FontWeight="bold">Hej Världen</Label>
+        <StackPanel Orientation="Horizontal">
+            <Label>Ange namn:</Label>
+            <TextBox Margin="5" Height="20"></TextBox>
+        </StackPanel>
+    <Button
+            Margin="5" Content="Klicka här" Background="#f642c1"></Button>
     </StackPanel>
 </Window>
