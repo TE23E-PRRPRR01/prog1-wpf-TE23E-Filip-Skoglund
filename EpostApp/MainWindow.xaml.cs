@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net.Mail;
+using System.Text.RegularExpressions;
 
 namespace EpostApp;
 
@@ -26,20 +27,23 @@ public partial class MainWindow : Window
     private void KlickSkicka(object sender, RoutedEventArgs e)
     {
         string epost = tbxEpost.Text;
-        string text = tbxMeddelande.Text;
+        string meddelande = tbxMeddelande.Text;
 
-        if (epost.Length == 0)
+        // Kontrollera att användaren har skrivit in en epostadress
+        string regexEpost = @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$";
+        if (!Regex.IsMatch(epost, regexEpost))
         {
-            lblStatus.Text = "Du måste ange en epostadress!";
+            // Visa felmeddelande
+            lblStatus.Content = "Du måste ange en giltig epostadress!";
         }
         else
         {
             SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
             smtp.EnableSsl = true;
-            smtp.Credentials = new NetworkCredential("user", "pass");
-            smtp.Send(id, epost, "Meddelande från WPF", text);
+            smtp.Credentials = new NetworkCredential("filip.skoglund@elev.ga.ntig.se", "");
+            smtp.Send("filip.skoglund@elev.ga.ntig.se", epost, "Meddelande från WPF", meddelande);
 
-            lblStatus.Text = "Meddelandet skickades!";
+             lblStatus.Content = "Meddelandet skickades!";
         }
     }
 }
