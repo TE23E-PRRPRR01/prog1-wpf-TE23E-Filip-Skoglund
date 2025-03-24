@@ -24,7 +24,7 @@ public partial class MainWindow : Window
 
     private void KlickBeräkna(object sender, RoutedEventArgs e)
     {
-        if (int.TryParse(tbxTal1.Text.Trim(), out int tal1) && int.TryParse(tbxTal2.Text.Trim(), out int tal2))
+        if (double.TryParse(tbxTal1.Text.Trim(), out double tal1) && double.TryParse(tbxTal2.Text.Trim(), out double tal2))
         {
             switch (tbxOperator.Text.Trim())
             {
@@ -35,12 +35,12 @@ public partial class MainWindow : Window
                     lblResultat.Content = $"{tal1} - {tal2} = {tal1 - tal2}";
                     break;
                 case "*":
-                    lblResultat.Content = $"{tal1} * {tal2} = {tal1 * tal2}";
+                    lblResultat.Content = $"{tal1} * {tal2} = {Math.Round(tal1 * tal2, 2)}";
                     break;
                 case "/":
                     if (tal2 != 0)
                     {
-                        lblResultat.Content = $"{tal1} / {tal2} = {Math.Round((double)tal1 / tal2, 2)}";
+                        lblResultat.Content = $"{tal1} / {tal2} = {Math.Round(tal1 / tal2, 2)}";
                     }
                     else
                     {
