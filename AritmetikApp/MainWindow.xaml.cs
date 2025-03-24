@@ -26,36 +26,44 @@ public partial class MainWindow : Window
     {
         if (double.TryParse(tbxTal1.Text.Trim(), out double tal1) && double.TryParse(tbxTal2.Text.Trim(), out double tal2))
         {
-            switch (tbxOperator.Text.Trim())
-            {
-                case "+":
-                    lblResultat.Content = $"{tal1} + {tal2} = {tal1 + tal2}";
-                    break;
-                case "-":
-                    lblResultat.Content = $"{tal1} - {tal2} = {tal1 - tal2}";
-                    break;
-                case "*":
-                    lblResultat.Content = $"{tal1} * {tal2} = {Math.Round(tal1 * tal2, 2)}";
-                    break;
-                case "/":
-                    if (tal2 != 0)
-                    {
-                        lblResultat.Content = $"{tal1} / {tal2} = {Math.Round(tal1 / tal2, 2)}";
-                    }
-                    else
-                    {
-
-                        lblResultat.Content = "Division by 0 is illegal";
-                    }
-                    break;
-                default:
-                    lblResultat.Content = "Ogiltig operatör";
-                    break;
-            }
+            lblResultat.Content = UtförBeräkning(tal1, tal2);
         }
         else
         {
             lblResultat.Content = "Ogiltig inmatning";
+        }
+    }
+
+
+    // ============== METODER ==============
+
+    /// <summary>
+    /// Metod som utför beräkningar
+    /// </summary>
+    /// <param name="tal1"></param>
+    /// <param name="tal2"></param>
+    /// <returns></returns>
+    public string UtförBeräkning(double tal1, double tal2)
+    {
+        switch (tbxOperator.Text.Trim())
+        {
+            case "+":
+                return $"{tal1} + {tal2} = {tal1 + tal2}";
+            case "-":
+                return $"{tal1} - {tal2} = {tal1 - tal2}";
+            case "*":
+                return $"{tal1} * {tal2} = {Math.Round(tal1 * tal2, 2)}";
+            case "/":
+                if (tal2 != 0)
+                {
+                    return $"{tal1} / {tal2} = {Math.Round(tal1 / tal2, 2)}";
+                }
+                else
+                {
+                    return "Division by 0 is illegal";
+                }
+            default:
+                return "Ogiltig operatör";
         }
     }
 }
