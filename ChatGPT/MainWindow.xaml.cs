@@ -45,17 +45,43 @@ public partial class MainWindow : Window
     }
 
     public void SkickaTillOllama(object data)
-    {  
-        // Skicka data till servern
-        HttpResponseMessage svar = klient.PostAsJsonAsync(url, data).Result; 
+    {
+        try
+        {
+            // Skicka data till servern
+            HttpResponseMessage svar = klient.PostAsJsonAsync(url, data).Result;
 
-        // Kontrollera att "requesten" lyckades
-        svar.EnsureSuccessStatusCode();
+            // Kontrollera att "requesten" lyckades
+            svar.EnsureSuccessStatusCode();
 
-        // Läs innehållet i svaret
-        string råtext = svar.Content.ReadAsStringAsync().Result;
+            // Läs innehållet i svaret
+            string råtext = svar.Content.ReadAsStringAsync().Result;
 
-        // Skriv ut i svarsrutan
-        txbSvar.Text = råtext;
+            // Dela upp råtextren i rader
+            string[] rader = råtext.Split('\n');
+
+            foreach (string rad in rader)
+            {
+                if (rad.Contains("response"))
+                {
+                    txbSvar.Text += PlockaUtToken(rad);
+                }
+            }
+        }
+        catch(HttpRequestException e)
+        {
+            txbSvar.Text = $"Fel: {e.Message}";
+        }
+    }
+
+
+    public string PlockaUtToken(string rad)
+    {
+        // från "respons" 11 tecken fram: 
+        int start = rad.IndexOf("response") + 11;
+        int slut = rad.IndexOf("\"", start);
+
+        // Plocka ut token
+        return rad.Substring(start, slut - start);
     }
 }

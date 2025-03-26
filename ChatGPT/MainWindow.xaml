@@ -8,6 +8,6 @@
         <Label FontSize="20" FontWeight="Bold">AI Chatt App</Label>
         <TextBox Name="txbPrompt" Height="100" Margin="10" Padding="10"></TextBox>
         <Button Click="KlickaSkicka" Margin="10" Padding="10">Skicka</Button>
-        <TextBox Name="txbSvar" Height="300" Margin="10" Padding="10" IsReadOnly="true" VerticalScrollBarVisibility="auto"></TextBox>
+        <TextBox Name="txbSvar" Height="300" Margin="10" Padding="10" IsReadOnly="true" VerticalScrollBarVisibility="auto" TextWrapping="Wrap"></TextBox>
     </StackPanel>
 </Window>
